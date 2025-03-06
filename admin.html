@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Администрация</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style-admin.css">
+    <style>
+        .columen{
+            flex-direction: column;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Гостиница</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="rent-room.html">Снять номер</a></li>
+                <li><a href="booking.html">Бронирование</a></li>
+                <li><a href="support.html">Связаться с поддержкой</a></li>
+                <li id="profileLink" style="display: none;" class="dropdown">
+                    <span id="usernameDisplay"></span>
+                    <div class="dropdown-content">
+                        <a href="#" id="logoutButton">Выход</a>
+                    </div>
+                </li>
+                <li><a href="login.html" id="loginLink" style="display: inline;">Вход</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main style="color: #000;">
+        <div class="columen">
+        <div class="admin-container">
+            <h1>Добавить новую рекомендуемую</h1>
+            <input type="text" id="cardTitle" placeholder="сылка на карточки">
+            <input type="text" id="cardDescription" placeholder="Заголовок карточки">
+            <input type="text" id="cardImage" placeholder="Ценна изображение">
+            <input type="text" id="cardData" required placeholder="Время брониравания">
+            <button onclick="addCard()">Добавить карточку</button>
+            <button onclick="resetCards()">Сбросить все карточки</button>
+        </div>
+        <div class="admin-container">
+            <form id="add-card-form">
+                <input type="text" id="card-title" required placeholder="Ссылка на изображение">
+                <input type="text" id="card-duration" required placeholder="Заголовок карточки">
+                <input type="text" id="card-price" required placeholder="Ценна карточки">
+                <input type="text" id="card-data" required placeholder="Время брониравания">
+                <button type="submit">Добавить карточку</button>
+            </form>
+        
+            <button onclick="resetCardsRed()">Сбросить карточки</button>
+        </div>
+        <h2>Раздел для администрации</h2>
+        <section>
+            <h3>Управление пользователями</h3>
+            <p>Добавляйте и удаляйте пользователей, управляйте их правами доступа.</p>
+            <table id="userTable">
+                <thead>
+                    <tr>
+                        <th>Имя пользователя</th>
+                        <th>Email</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Данные пользователей будут добавлены здесь -->
+                </tbody>
+            </table>
+        </section>
+        </div>
+    </main>
+
+    <footer>
+        <p>Гостиница</p>
+    </footer>
+
+
+
+
+
+
+    <script src="script.js"></script>
+    <script>
+        // Проверка авторизации пользователя
+        const username = localStorage.getItem('username');
+        const email = localStorage.getItem('email');
+
+        if (username && email) {
+            document.getElementById('usernameDisplay').innerText = username;
+            document.getElementById('profileLink').style.display = 'inline-block';
+            document.getElementById('loginLink').style.display = 'none';
+        } else {
+            document.getElementById('profileLink').style.display = 'none';
+            document.getElementById('loginLink').style.display = 'inline';
+        }
+
+        // Обработка выхода
+        document.getElementById('logoutButton').addEventListener('click', function() {
+            localStorage.removeItem('username');
+            localStorage.removeItem('email');
+            localStorage.removeItem('password');
+            window.location.reload(); // Перезагрузка страницы
+        });
+
+        // Функция для отображения пользователей
+        function displayUsers() {
+            const userProfiles = JSON.parse(localStorage.getItem('userProfiles')) || {};
+            const userTableBody = document.getElementById('userTable').getElementsByTagName('tbody')[0];
+            userTableBody.innerHTML = ''; // Очищаем таблицу перед добавлением
+
+            for (const email in userProfiles) {
+                const row = userTableBody.insertRow();
+                const usernameCell = row.insertCell(0);
+                const emailCell = row.insertCell(1);
+                const actionsCell = row.insertCell(2);
+
+                usernameCell.innerText = userProfiles[email].username;
+                emailCell.innerText = email;
+
+                const deleteButton = document.createElement('button');
+                deleteButton.innerText = 'Удалить';
+                deleteButton.className = 'delete-button';
+                deleteButton.onclick = function() {
+                    deleteUser (email);
+                };
+                actionsCell.appendChild(deleteButton);
+            }
+        }
+
+        // Функция для удаления пользователя
+        function deleteUser (email) {
+            const userProfiles = JSON.parse(localStorage.getItem('userProfiles')) || {};
+            delete userProfiles[email];
+            localStorage.setItem('userProfiles', JSON.stringify(userProfiles));
+            displayUsers(); // Обновляем отображение пользователей
+        }
+
+        // Инициализация отображения пользователей при загрузке страницы
+        displayUsers();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Функция для добавления новой карточки
+function addCardRed(event) {
+            event.preventDefault(); // Предотвращаем перезагрузку страницы
+
+            // Получаем данные из формы
+            const cardTitle = document.getElementById('card-title').value.trim();
+            const cardDuration = document.getElementById('card-duration').value.trim();
+            const cardPrice = document.getElementById('card-price').value.trim();
+            const cardData = document.getElementById('card-data').value.trim();
+
+            // Создаем объект новой карточки
+            const newCard = {
+                title: cardTitle,
+                duration: cardDuration,
+                price: cardPrice,
+                data: cardData,
+                buttonText: "Позвонить",
+                buttonText2: "Вызвать"
+            };
+
+            // Получаем текущий массив карточек из localStorage
+            let cardsData = JSON.parse(localStorage.getItem('cardsData')) || [];
+
+            // Добавляем новую карточку в массив
+            cardsData.push(newCard);
+
+            // Сохраняем обновленный массив в localStorage
+            localStorage.setItem('cardsData', JSON.stringify(cardsData));
+
+            // Очищаем форму
+            document.getElementById('add-card-form').reset();
+
+            // Уведомляем администратора
+            alert('Карточка успешно добавлена!');
+        }
+
+        const defaultCards = [
+            {
+                title: "./image 2.png",
+                duration: "Премиум с панорамным видом",
+                price: "От 6 000 ₽",
+                data: "1 ночь / 2 гостя",
+                buttonText: "Позвонить",
+                buttonText2: "Забронировать"
+            },
+            {
+                title: "./image 2.png",
+                duration: "Премиум с панорамным видом",
+                price: "От 6 000 ₽",
+                data: "1 ночь / 2 гостя",
+                buttonText: "Позвонить",
+                buttonText2: "Забронировать"
+            },
+            {
+                title: "./image 2.png",
+                duration: "Премиум с панорамным видом",
+                price: "От 6 000 ₽",
+                data: "1 ночь / 2 гостя",
+                buttonText: "Позвонить",
+                buttonText2: "Забронировать"
+            },
+        ];
+        // Функция для сброса карточек
+        function resetCardsRed() {
+            localStorage.setItem('cardsData', JSON.stringify(defaultCards)); // Удаляем данные о карточках
+        }
+
+        // Инициализация формы
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('add-card-form');
+            form.addEventListener('submit', addCardRed);
+        });
+
+        resetCardsRed()
+    </script>
+</body>
+</html>
