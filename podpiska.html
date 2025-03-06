@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="podpiska.css">
+    <style>
+        .cards-container {
+            display: grid;
+            gap: 16px; /* Расстояние между карточками */
+            padding: 16px;
+        }
+        .imageOver{
+            position: relative;
+            width: 300px;
+            height: 144.64px;
+            overflow: hidden;
+        }
+        .imageOver img{
+            position: absolute;
+            bottom: 0;
+        }
+    </style>
+    <title>Гостиница</title>
+    <header>
+        <h1>Гостиница</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="podpiska.html">Снять номер</a></li>
+                <li><a href="podpiska-start.html">Бронирование</a></li>
+                <li><a href="revers.html">Связаться с поддержкой</a></li>
+                <li id="profileLink" style="display: none;" class="dropdown">
+                    <span id="usernameDisplay"></span>
+                    <div class="dropdown-content">
+                        <a href="#" id="logoutButton">Выход</a>
+                    </div>
+                </li>
+                <li><a href="login.html" id="loginLink" style="display: inline;">Вход</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="cards-container" id="cards-container"></div>
+    </main>
+    <footer>
+        <p>Гостиница</p>
+    </footer>
+
+    <script>
+
+
+
+
+
+
+
+
+        const defaultCards = [
+            {
+                title: "./image 2.png",
+                duration: "Премиум с панорамным видом",
+                price: "От 6 000 ₽",
+                data: "1 ночь / 2 гостя",
+                buttonText: "Позвонить",
+                buttonText2: "Забронировать"
+            },
+            {
+                title: "./image 2.png",
+                duration: "Премиум с панорамным видом",
+                price: "От 6 000 ₽",
+                data: "1 ночь / 2 гостя",
+                buttonText: "Позвонить",
+                buttonText2: "Забронировать"
+            },
+            {
+                title: "./image 2.png",
+                duration: "Премиум с панорамным видом",
+                price: "От 6 000 ₽",
+                data: "1 ночь / 2 гостя",
+                buttonText: "Позвонить",
+                buttonText2: "Забронировать"
+            },
+        ];
+
+
+
+
+
+
+
+ // Функция для отображения карточек
+ function displayCards() {
+            const cardsContainer = document.getElementById('cards-container');
+            const cardsData = JSON.parse(localStorage.getItem('cardsData')) || [];
+
+            cardsContainer.innerHTML = ''; // Очищаем контейнер перед добавлением новых карточек
+
+            cardsData.forEach(card => {
+                const cardElement = document.createElement('div');
+                cardElement.classList.add('card-p');
+
+                cardElement.innerHTML = `
+                <div class= "imageOver">
+                    <img src="${card.title}" alt="${card.title}"></img>
+                </div>
+                <h1>${card.duration}</h1>
+                <div class="card-row">
+                    <p>${card.price}</p>
+                    <p>${card.data}</p>
+                </div>
+                <div class="button-container">
+                <a style="visibility: hidden;"><button>${card.buttonText}</button></a>
+                <a  href="podpiska-start.html"><button href="podpiska-start.html">${card.buttonText2}</button></a>
+                </div>
+                `;
+
+                cardsContainer.appendChild(cardElement);
+            });
+        }
+
+        // Инициализация отображения карточек при загрузке страницы
+        document.addEventListener('DOMContentLoaded', displayCards);
+    </script>
+    </body>
+
+</html>
