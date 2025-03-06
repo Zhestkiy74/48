@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        main{
+            display: flex;
+            justify-content: center;
+        }
+        .form-container {
+
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 440px;
+        }
+
+        h2 {
+            color: #000000;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            width: 100%;
+            max-width: 386px;
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            width: 100%;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="tel"],
+        select {
+            width: 100%;
+            padding: 7px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #517785;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2f454d;
+        }
+    </style>
+    <title>Гостиница</title>
+    <header>
+        <h1>Гостиница</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="podpiska.html">Снять номер</a></li>
+                <li><a href="podpiska-start.html">Бронирование</a></li>
+                <li><a href="revers.html">Связаться с поддержкой</a></li>
+                <li id="profileLink" style="display: none;" class="dropdown">
+                    <span id="usernameDisplay"></span>
+                    <div class="dropdown-content">
+                        <a href="#" id="logoutButton">Выход</a>
+                    </div>
+                </li>
+                <li><a href="login.html" id="loginLink" style="display: inline;">Вход</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+            <div class="form-container">
+                <h2>Бронирование</h2>
+                <form>
+                    <div class="form-group">
+                        <label for="name">С какого числа снимаете номер</label>
+                        <input type="text" id="name" placeholder="Введите начало 20.04">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">По кокое число снимаете номер</label>
+                        <input type="text" id="name" placeholder="Введите конец 25.05">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Сколько человек</label>
+                        <input type="text" id="name" placeholder="Количество">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Цена</label>
+                        <input type="text" id="name" placeholder="Введите цену">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Ваше имя</label>
+                        <input type="text" id="name" placeholder="Сергей">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Ваш телефон*</label>
+                        <input type="text" id="name" placeholder="Введите номер телефона">
+                    </div>
+
+
+                    <button type="submit">Забронировать</button>
+                </form>
+            </div>
+    </main>
+
+    <footer>
+        <p>Гостиница</p>
+    </footer>
+
+
+    </body>
+
+</html>

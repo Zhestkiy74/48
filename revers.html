@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .container-in{
+            width: 100%;
+            max-width: 386px;
+        }
+
+        
+        .container{
+            margin: auto 0;
+            height: 259px;
+            color: #000;
+            background-color: #fff;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            border-radius: 8px;
+        }
+        .container h1{
+            margin: 0 0 8px 0;
+        }
+        .container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #517785;
+            color: #fff;
+            max-width: 386px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            
+
+        }
+        .container button:hover {
+            background-color: #2b3f46;
+        }
+    </style>
+    <title>Гостиница</title>
+    <header>
+        <h1>Гостиница</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="podpiska.html">Снять номер</a></li>
+                <li><a href="podpiska-start.html">Бронирование</a></li>
+                <li><a href="revers.html">Связаться с поддержкой</a></li>
+                <li id="profileLink" style="display: none;" class="dropdown">
+                    <span id="usernameDisplay"></span>
+                    <div class="dropdown-content">
+                        <a href="#" id="logoutButton">Выход</a>
+                    </div>
+                </li>
+                <li><a href="login.html" id="loginLink" style="display: inline;">Вход</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1>Связаться с поддержкой</h1>
+            <div class="container-in">
+                <label for="revers-message">Чат с поддержкой</label>
+                <input type="text" id="revers-message" required>
+            </div>
+            <button>Отправить</button>
+        </div>
+    </main>
+
+    <footer>
+        <p>Гостиница</p>
+    </footer>
+    </body>
+
+</html>
